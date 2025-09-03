@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Plateforme de Gestion de Répétition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --success-color: #27ae60;
+        }
+        
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <header class="bg-blue-800 text-white py-4 shadow-md">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgMkwydCAxMGgxMHYxMkwyMiAxMHYtMk0yIDEwaDIwTTE0IDEwdjEyTTIgMTB2MTJhMiAyIDAgMCAwIDIgMmg0Ij48L3BhdGg+PC9zdmc+" alt="Logo" class="w-10 h-10">
+                <h1 class="ml-3 text-xl font-semibold">Gestion de Répétition</h1>
+            </div>
+            <div class="flex space-x-4">
+                <a href="/" class="text-white hover:text-blue-200 transition-colors flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    Accueil
+                </a>
+                <a href="javascript:history.back()" class="text-white hover:text-blue-200 transition-colors flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Retour
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <main class="flex-grow py-10">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Créer un compte</h2>
+                <form id="registration-form" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="lastname" class="block text-gray-700 font-semibold mb-2">Nom</label>
+                            <input type="text" id="lastname" name="lastname" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="firstname" class="block text-gray-700 font-semibold mb-2">Prénom</label>
+                            <input type="text" id="firstname" name="firstname" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="birthdate" class="block text-gray-700 font-semibold mb-2">Date de naissance</label>
+                        <input type="date" id="birthdate" name="birthdate" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+                        <input type="email" id="email" name="email" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div>
+                        <label for="phone" class="block text-gray-700 font-semibold mb-2">Numéro de téléphone</label>
+                        <input type="tel" id="phone" name="phone" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="password" class="block text-gray-700 font-semibold mb-2">Mot de passe</label>
+                            <input type="password" id="password" name="password" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="confirm-password" class="block text-gray-700 font-semibold mb-2">Confirmer le mot de passe</label>
+                            <input type="password" id="confirm-password" name="confirm-password" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded transition-colors">
+                        S'inscrire
+                    </button>
+                    
+                    <div class="text-center mt-4">
+                        <p class="text-gray-600">Déjà inscrit? 
+                            <a href="connexion.html" class="text-blue-600 hover:text-blue-800 hover:underline">Connectez-vous</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="bg-gray-800 text-white py-5 mt-10">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 Plateforme de Gestion de Répétition. Tous droits réservés.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validation basique
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                alert('Les mots de passe ne correspondent pas.');
+                return;
+            }
+            
+            // Simulation d'envoi au serveur
+            alert('Inscription réussie! Vous allez être redirigé.');
+            // Normalement, ici on enverrait les données au serveur
+            // this.submit();
+        });
+    </script>
+</body>
+</html>

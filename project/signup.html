@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Création de Compte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .custom-bg {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        }
+        .input-icon {
+            color: #9ca3af;
+        }
+        .password-toggle {
+            color: #9ca3af;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .password-toggle:hover {
+            color: #6a11cb;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .password-strength-bar {
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body class="custom-bg min-h-screen flex items-center justify-center p-4">
+    <!-- Liens de navigation -->
+    <div class="absolute top-6 left-6 flex space-x-4">
+        <a href="index.html" class="text-white bg-white bg-opacity-20 px-4 py-2 rounded-lg flex items-center hover:bg-opacity-30 transition-all duration-300 shadow-md">
+            <i class="fas fa-home mr-2"></i> Accueil
+        </a>
+        <a href="javascript:history.back()" class="text-white bg-white bg-opacity-20 px-4 py-2 rounded-lg flex items-center hover:bg-opacity-30 transition-all duration-300 shadow-md">
+            <i class="fas fa-arrow-left mr-2"></i> Retour
+        </a>
+    </div>
+
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden card-hover">
+        <div class="p-8">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-plus text-white text-2xl"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-800">Créer un compte</h1>
+                <p class="text-gray-600 mt-2">Rejoignez-nous en remplissant le formulaire ci-dessous.</p>
+            </div>
+
+            <form id="signupForm" class="space-y-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Adresse email</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope input-icon"></i>
+                        </div>
+                        <input type="email" id="email" class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="votre@email.com" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock input-icon"></i>
+                        </div>
+                        <input type="password" id="password" class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Votre mot de passe" required>
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+                            <div id="passwordStrengthBar" class="h-full password-strength-bar w-0"></div>
+                        </div>
+                        <div id="passwordStrengthText" class="text-xs text-right mt-1 text-gray-500">Force du mot de passe</div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">Confirmation du mot de passe</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock input-icon"></i>
+                        </div>
+                        <input type="password" id="confirmPassword" class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Confirmez votre mot de passe" required>
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <i class="fas fa-eye password-toggle" id="confirmPasswordToggle"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <input id="terms" name="terms" type="checkbox" class="h-4 w-4 text-blue-500 focus:ring-blue-500 border-gray-300 rounded" required>
+                    <label for="terms" class="ml-2 block text-sm text-gray-700">
+                        J'accepte les <a href="#" class="text-blue-500 hover:text-blue-700">Conditions d'utilisation</a> et la <a href="#" class="text-blue-500 hover:text-blue-700">Politique de confidentialité</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-md hover:shadow-lg">
+                    Créer mon compte
+                </button>
+            </form>
+
+            <div id="message" class="hidden mt-6 p-4 rounded-lg"></div>
+
+            <div class="text-center mt-6">
+                <span class="text-gray-600">Vous avez déjà un compte?</span>
+                <a href="connexion.html" class="font-medium text-blue-500 hover:text-blue-700 ml-2">Se connecter</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour basculer la visibilité du mot de passe
+        function setupPasswordToggle(inputId, toggleId) {
+            const passwordInput = document.getElementById(inputId);
+            const toggleButton = document.getElementById(toggleId);
+            
+            toggleButton.addEventListener('click', function() {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
+            });
+        }
+        
+        // Configuration des bascules de mot de passe
+        setupPasswordToggle('password', 'passwordToggle');
+        setupPasswordToggle('confirmPassword', 'confirmPasswordToggle');
+        
+        // Vérification de la force du mot de passe
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('passwordStrengthBar');
+            const strengthText = document.getElementById('passwordStrengthText');
+            
+            // Réinitialiser
+            strengthBar.className = 'h-full password-strength-bar w-0';
+            strengthBar.style.width = '0%';
+            
+            if (password.length === 0) {
+                strengthText.textContent = 'Force du mot de passe';
+                strengthText.className = 'text-xs text-right mt-1 text-gray-500';
+                return;
+            }
+            
+            // Calculer la force
+            let strength = 0;
+            
+            // Longueur
+            if (password.length > 5) strength += 1;
+            
+            // Contient des lettres minuscules et majuscules
+            if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) strength += 1;
+            
+            // Contient des chiffres
+            if (password.match(/([0-9])/)) strength += 1;
+            
+            // Contient des caractères spéciaux
+            if (password.match(/([!,@,#,$,%,^,&,*,?,_,~])/)) strength += 1;
+            
+            // Longueur supérieure à 9
+            if (password.length > 9) strength += 1;
+            
+            // Mettre à jour l'interface
+            switch(strength) {
+                case 0:
+                case 1:
+                    strengthBar.classList.add('bg-red-500');
+                    strengthBar.style.width = '33%';
+                    strengthText.textContent = 'Faible';
+                    strengthText.className = 'text-xs text-right mt-1 text-red-500';
+                    break;
+                case 2:
+                case 3:
+                    strengthBar.classList.add('bg-yellow-500');
+                    strengthBar.style.width = '66%';
+                    strengthText.textContent = 'Moyen';
+                    strengthText.className = 'text-xs text-right mt-1 text-yellow-500';
+                    break;
+                case 4:
+                case 5:
+                    strengthBar.classList.add('bg-green-500');
+                    strengthBar.style.width = '100%';
+                    strengthText.textContent = 'Fort';
+                    strengthText.className = 'text-xs text-right mt-1 text-green-500';
+                    break;
+            }
+        });
+        
+        // Validation du formulaire
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const messageDiv = document.getElementById('message');
+            const termsCheckbox = document.getElementById('terms');
+            
+            // Validation basique de l'email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!emailPattern.test(email)) {
+                messageDiv.textContent = "Veuillez entrer une adresse email valide.";
+                messageDiv.className = "mt-6 p-4 rounded-lg bg-red-100 text-red-700";
+                messageDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Vérification de la longueur du mot de passe
+            if (password.length < 6) {
+                messageDiv.textContent = "Le mot de passe doit contenir au moins 6 caractères.";
+                messageDiv.className = "mt-6 p-4 rounded-lg bg-red-100 text-red-700";
+                messageDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Vérification de la correspondance des mots de passe
+            if (password !== confirmPassword) {
+                messageDiv.textContent = "Les mots de passe ne correspondent pas.";
+                messageDiv.className = "mt-6 p-4 rounded-lg bg-red-100 text-red-700";
+                messageDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Vérification des conditions d'utilisation
+            if (!termsCheckbox.checked) {
+                messageDiv.textContent = "Veuillez accepter les conditions d'utilisation.";
+                messageDiv.className = "mt-6 p-4 rounded-lg bg-red-100 text-red-700";
+                messageDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Simulation de création de compte réussie
+            messageDiv.innerHTML = `<strong>Compte créé avec succès!</strong> Un email de confirmation a été envoyé à ${email}.`;
+            messageDiv.className = "mt-6 p-4 rounded-lg bg-green-100 text-green-700";
+            messageDiv.classList.remove('hidden');
+            
+            // Réinitialiser le formulaire
+            document.getElementById('signupForm').reset();
+            
+            // Réinitialiser la barre de force du mot de passe
+            const strengthBar = document.getElementById('passwordStrengthBar');
+            const strengthText = document.getElementById('passwordStrengthText');
+            strengthBar.className = 'h-full password-strength-bar w-0';
+            strengthBar.style.width = '0%';
+            strengthText.textContent = 'Force du mot de passe';
+            strengthText.className = 'text-xs text-right mt-1 text-gray-500';
+            
+            // Redirection simulée après 3 secondes
+            setTimeout(() => {
+                messageDiv.innerHTML += "<br>Redirection vers la page de connexion...";
+            }, 2000);
+            
+            setTimeout(() => {
+                window.location.href = "connexion.html";
+            }, 4000);
+        });
+    </script>
+</body>
+</html>
