@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réinitialiser le mot de passe</title>
+  <style>
+    :root {
+      --primary: #4facfe;
+      --primary-dark: #00c6ff;
+      --error: #ff4d4d;
+      --success: #00cc66;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 420px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #555;
+    }
+    .input-group {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    input[type="password"], input[type="text"] {
+      width: 100%;
+      padding: 12px 40px 12px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      box-sizing: border-box;
+    }
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 5px rgba(79,172,254,0.5);
+      outline: none;
+    }
+    .toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 16px;
+      color: #666;
+      user-select: none;
+    }
+    .strength {
+      height: 6px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      background: #ddd;
+      overflow: hidden;
+    }
+    .strength-bar {
+      height: 100%;
+      width: 0;
+      transition: width 0.3s;
+    }
+    .criteria {
+      font-size: 13px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .criteria span {
+      display: block;
+      color: var(--error);
+    }
+    .criteria span.valid {
+      color: var(--success);
+    }
+    .error {
+      color: var(--error);
+      font-size: 13px;
+      margin-bottom: 12px;
+      display: none;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background: var(--primary-dark);
+      transform: scale(1.02);
+    }
+    @media (max-width: 480px) {
+      .container { padding: 20px; }
+      h2 { font-size: 1.3rem; }
+      input, button { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Réinitialiser le mot de passe</h2>
+    <form id="resetForm">
+      <label for="password">Nouveau mot de passe</label>
+      <div class="input-group">
+        <input type="password" id="password" name="password" required>
+        <span class="toggle" onclick="togglePassword('password')">👁</span>
+      </div>
+
+      <div class="strength"><div class="strength-bar" id="strengthBar"></div></div>
+
+      <div class="criteria">
+        <span id="lower">• Une lettre minuscule</span>
+        <span id="upper">• Une lettre majuscule</span>
+        <span id="number">• Un chiffre</span>
+        <span id="length">• Minimum 8 caractères</span>
+      </div>
+
+      <label for="confirm">Confirmer le mot de passe</label>
+      <div class="input-group">
+        <input type="password" id="confirm" name="confirm" required>
+        <span class="toggle" onclick="togglePassword('confirm')">👁</span>
+      </div>
+
+      <div class="error" id="errorMsg">Les mots de passe ne correspondent pas.</div>
+
+      <button type="submit">Valider</button>
+    </form>
+  </div>
+
+  <script>
+    const password = document.getElementById("password");
+    const confirmPass = document.getElementById("confirm");
+    const errorMsg = document.getElementById("errorMsg");
+    const strengthBar = document.getElementById("strengthBar");
+
+    const lower = document.getElementById("lower");
+    const upper = document.getElementById("upper");
+    const number = document.getElementById("number");
+    const length = document.getElementById("length");
+
+    function togglePassword(id) {
+      const field = document.getElementById(id);
+      field.type = field.type === "password" ? "text" : "password";
+    }
+
+    password.addEventListener("input", () => {
+      const val = password.value;
+      let strength = 0;
+
+      if (/[a-z]/.test(val)) { lower.classList.add("valid"); strength++; } else { lower.classList.remove("valid"); }
+      if (/[A-Z]/.test(val)) { upper.classList.add("valid"); strength++; } else { upper.classList.remove("valid"); }
+      if (/[0-9]/.test(val)) { number.classList.add("valid"); strength++; } else { number.classList.remove("valid"); }
+      if (val.length >= 8) { length.classList.add("valid"); strength++; } else { length.classList.remove("valid"); }
+
+      const colors = ["#ff4d4d", "#ff944d", "#ffcc00", "#99e600"];
+      strengthBar.style.width = (strength * 25) + "%";
+      strengthBar.style.background = colors[strength - 1] || "#ddd";
+    });
+
+    confirmPass.addEventListener("input", () => {
+      errorMsg.style.display = confirmPass.value !== password.value ? "block" : "none";
+    });
+
+    document.getElementById("resetForm").addEventListener("submit", (e) => {
+      if (password.value !== confirmPass.value) {
+        e.preventDefault();
+        errorMsg.style.display = "block";
+      } else {
+        errorMsg.style.display = "none";
+        alert("Mot de passe réinitialisé avec succès !");
+      }
+    });
+  </script>
+
+</body>
+</html>
